@@ -1,37 +1,17 @@
-
-
-let bigNum1 = "4093975647547595768675765456458654976575687976";
-let bigNum2 = "4082643465458756796788887876876685785678565945";
-
-let num1 = "4231";
-let num2 = "3754";
-
-let res = plus(bigNum1, bigNum2);
-console.log(res);
-
-let res2 = minus(num1, num2);
-console.log(res2)
-
-let res3 = divide(bigNum1, bigNum2);
-console.log(res3)
-
-let res4 = multiply(num1, num2);
-console.log(res4)
-
-function plus(num1, num2) {
+String.prototype.plus = function(num) {
     let result = "";
     let carry = 0;
-    let i = num1.length - 1;
-    let j = num2.length - 1;
+    let i = this.length - 1;
+    let j = num.length - 1;
 
     while (i >= 0 || j >= 0 || carry) {
         let digitSum = carry;
         if (i >= 0) {
-            digitSum += parseInt(num1[i]);
+            digitSum += parseInt(this[i]);
             i--;
         }
         if (j >= 0) {
-            digitSum += parseInt(num2[j]);
+            digitSum += parseInt(num[j]);
             j--;
         }
         carry = Math.floor(digitSum / 10);
@@ -42,19 +22,19 @@ function plus(num1, num2) {
     return result;
 }
 
-function minus(num1, num2) {
+String.prototype.minus = function(num) {
     let result = "";
     let borrow = 0;
-    let i = num1.length - 1;
-    let j = num2.length - 1;
+    let i = this.length - 1;
+    let j = num.length - 1;
 
     while (i >= 0) {
         let digitDiff = borrow;
         if (j >= 0) {
-            digitDiff += parseInt(num1[i]) - parseInt(num2[j]);
+            digitDiff += parseInt(this[i]) - parseInt(num[j]);
             j--;
         } else {
-            digitDiff += parseInt(num1[i]);
+            digitDiff += parseInt(this[i]);
         }
         if (digitDiff < 0) {
             borrow = -1;
@@ -69,9 +49,9 @@ function minus(num1, num2) {
     return result.replace(/^0+/, "");
 }
 
-function divide(num1, num2) {
-    let dividend = parseInt(num1);
-    let divisor = parseInt(num2);
+String.prototype.divide = function(num) {
+    let dividend = parseInt(this);
+    let divisor = parseInt(num);
     let i = 0;
 
     while (dividend >= divisor) {
@@ -82,6 +62,24 @@ function divide(num1, num2) {
     return i.toString();
 }
 
-function multiply(num1, num2) {
-    return (parseInt(num1) * parseInt(num2)).toString();
+String.prototype.multiply = function(num) {
+    return (parseInt(this) * parseInt(num)).toString();
 }
+
+let bigNum1 = "4093975647547595768675765456458654976575687976";
+let bigNum2 = "4082643465458756796788887876876685785678565945";
+
+let num1 = "4231";
+let num2 = "3754";
+
+let res = bigNum1.plus(bigNum2);
+console.log(res);
+
+let res2 = num1.minus(num2);
+console.log(res2)
+
+let res3 = bigNum1.divide(bigNum2);
+console.log(res3)
+
+let res4 = num1.multiply(num2);
+console.log(res4)
